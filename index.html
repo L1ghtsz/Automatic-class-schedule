@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>ระบบจัดตารางสอนอัตโนมัติ</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f5;--sf:#fff;--tx:#1f2d3d;--mu:#5b6b7c;--ln:#d3dae3;--ac:#0f766e;--ac2:#e6f4f2;--bad:#b91c1c;--bad2:#fde8e8;--ok:#166534;--ok2:#e3f5e8;--wr:#b45309;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171f;--sf:#18222d;--tx:#e6ecf2;--mu:#98a8b9;--ln:#2b3a4a;--ac:#2dd4bf;--ac2:#12332f;--bad:#f87171;--bad2:#3a1717;--ok:#86efac;--ok2:#12301c;--wr:#fbbf24}}
+:root[data-theme="dark"]{--bg:#10171f;--sf:#18222d;--tx:#e6ecf2;--mu:#98a8b9;--ln:#2b3a4a;--ac:#2dd4bf;--ac2:#12332f;--bad:#f87171;--bad2:#3a1717;--ok:#86efac;--ok2:#12301c;--wr:#fbbf24}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 Sarabun,system-ui,sans-serif}
+header{padding:18px 16px 0;max-width:1100px;margin:auto}h1{margin:0;font-size:1.5rem}header p{margin:2px 0 12px;color:var(--mu)}
+nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--ln)}nav button{background:none;border:0;padding:9px 14px;font:inherit;color:var(--mu);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}nav button.on{color:var(--ac);border-color:var(--ac);font-weight:700}
+main{max-width:1100px;margin:auto;padding:14px 16px 40px}section{display:none}section.on{display:block}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:8px;padding:14px;margin-bottom:14px}h2{font-size:1.1rem;margin:0 0 8px}
+textarea,input,select{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:6px 8px;max-width:100%}textarea{width:100%;height:120px;font-family:ui-monospace,Menlo,monospace;font-size:.82rem}
+button.b{font:inherit;background:var(--ac);color:var(--bg);border:0;border-radius:6px;padding:8px 14px;cursor:pointer;font-weight:600}button.b.s{background:var(--sf);color:var(--tx);border:1px solid var(--ln)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.msg{padding:7px 10px;border-radius:6px;margin:4px 0;font-size:.92rem}.msg.e{background:var(--bad2);color:var(--bad)}.msg.w{background:var(--ac2);color:var(--wr)}.msg.o{background:var(--ok2);color:var(--ok)}
+.bar{height:12px;background:var(--ln);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .15s}
+.sc{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{border:1px solid var(--ln);padding:5px 7px;text-align:left;vertical-align:top}th{background:var(--ac2)}td.x{background:var(--bad2)}.cell b{display:block}.cell small{color:var(--mu)}
+.kpi{display:flex;gap:10px;flex-wrap:wrap}.kpi div{flex:1 1 130px;border:1px solid var(--ln);border-radius:8px;padding:8px 10px;background:var(--sf)}.kpi b{font-size:1.4rem;display:block}.kpi span{color:var(--mu);font-size:.85rem}
+body{background:radial-gradient(900px 380px at 8% -8%,var(--ac2),transparent),var(--bg)}.hero{background:linear-gradient(120deg,#0f766e,#1e40af);color:#fff;border-radius:18px;padding:24px 26px}.hero h1{font-size:1.8rem;letter-spacing:-.01em}.hero p{color:#dbeafe;margin:4px 0 0}header{padding-top:18px}nav{border:0;gap:8px;margin-top:14px}nav button{border:1px solid var(--ln);border-radius:999px;background:var(--sf);margin:0}nav button.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}.card{border-radius:14px;box-shadow:0 6px 20px rgba(15,23,42,.08)}button.b{border-radius:999px;padding:9px 18px}th{background:var(--ac2);color:var(--ac)}.cell{border-left:4px solid hsl(var(--h) 65% 45%);background:hsl(var(--h) 70% 50%/.17);border-radius:6px;padding:3px 7px;margin-bottom:3px}td{min-width:92px}.kpi div{border-radius:12px;border-top:3px solid var(--ac)}.kpi b{color:var(--ac)}.log div{padding:6px 10px;border-left:3px solid var(--ac);background:var(--ac2);margin:5px 0;border-radius:0 6px 6px 0;font-size:.93rem}.pri{display:flex;gap:8px;flex-wrap:wrap}.pri span{background:var(--ac2);color:var(--ac);border-radius:999px;padding:3px 12px;font-size:.88rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.chip{background:var(--ac2);color:var(--ac);border-radius:999px;padding:3px 6px 3px 12px;display:flex;gap:6px;align-items:center;font-size:.92rem}.chip button{border:0;background:none;color:inherit;cursor:pointer;font-size:1.1rem;line-height:1}details>summary{cursor:pointer;color:var(--mu);margin:6px 0}details.card>summary{margin:0}.row input[type=text],.row input:not([type]){flex:1 1 150px}
+#grid th{background:#c6f45a;color:#1a2e05;text-align:center}#grid td{text-align:center}.cell small{display:block}
+button.b.s.dy.on{background:#dc2626!important;color:#fff!important;border-color:#dc2626!important;font-weight:700}.dy.on::before{content:"✓ "}.dy{padding:6px 12px!important}
+#easy{grid-template-columns:repeat(2,minmax(0,1fr))}#easy .card{margin-bottom:0}@media(max-width:700px){#easy{grid-template-columns:1fr}}
+#easy .row{gap:6px}.dy{padding:4px 10px!important}#nws{padding:5px 6px}
+@media print{header,nav,.np{display:none!important}section{display:none!important}#t3{display:block!important}}
+</style></head><body>
+<header><div class="hero"><h1>📅 ระบบจัดตารางสอนอัตโนมัติ</h1><p>ตารางสอนไร้ข้อขัดแย้งในไม่กี่วินาที ด้วยเอเยนต์ AI แบบ plan–act–check–repair</p></div>
+<nav><button class="on" data-t="1">1 นำเข้าข้อมูล</button><button data-t="2">2 จัดตาราง</button><button data-t="3">3 ผลลัพธ์</button><button data-t="4">4 คู่มือ/แนวคิด</button></nav></header>
+<main>
+<section id="t1" class="on">
+<div class="card"><h2>ตั้งค่าเวลาเรียน</h2><div class="row np"><button class="b s" id="clr">🗑 ลบทั้งหมด</button>
+<label>คาบต่อวัน <input id="per" type="number" min="4" max="12" value="9" style="width:70px"></label><label>เริ่มเรียน <input id="t0" type="time" value="08:00"></label><label>นาทีต่อคาบ <input id="dur" type="number" min="20" max="120" value="60" style="width:70px"></label><label>พักเที่ยงคาบที่ <input id="lun" type="number" min="0" max="12" value="4" style="width:64px"></label><small>(0 = ไม่พัก) 9 คาบ × 60 นาที = 08:00–17:00</small></div></div>
+<div class="g3" id="easy"><div class="card"><h2>1) ครู</h2><div class="row np"><input id="nt" placeholder="พิมพ์ชื่อครู แล้วกด Enter"><button class="b s" id="at">เพิ่ม</button></div><div class="row np"><small>ไม่ว่างวัน:</small><button class="b s dy" data-d="จ">จ</button><button class="b s dy" data-d="อ">อ</button><button class="b s dy" data-d="พ">พ</button><button class="b s dy" data-d="พฤ">พฤ</button><button class="b s dy" data-d="ศ">ศ</button><select id="nws"><option value="">ทั้งวัน</option><option value="m">เฉพาะช่วงเช้า</option><option value="a">เฉพาะช่วงบ่าย</option></select><b id="dsel" style="flex-basis:100%;color:var(--bad);font-weight:600"></b></div><div class="chips" id="ct"></div></div><div class="card"><h2>2) ห้องเรียน</h2><div class="row np"><input id="nr" placeholder="พิมพ์ชื่อห้อง แล้วกด Enter"><label><input type="checkbox" id="nl"> แล็บ</label><button class="b s" id="ar">เพิ่ม</button></div><div class="chips" id="cr"></div></div><div class="card" style="grid-column:1/-1"><h2>3) วิชา</h2><div class="row np"><input id="ns" placeholder="ชื่อวิชา"><select id="nte"></select><select id="nsr"></select><input id="ng" placeholder="กลุ่มเรียน เช่น สทท.69.1 (หลายกลุ่มคั่นด้วย |)" style="max-width:170px"><label>คาบ <input id="nh" type="number" min="1" value="3" style="width:64px"></label><label><input type="checkbox" id="nb"> แล็บ</label><button class="b" id="as">เพิ่มวิชา</button></div><div class="chips" id="cs"></div></div></div>
+<details class="card"><summary>แก้เป็นข้อความ / อัปโหลดไฟล์ CSV (ขั้นสูง)</summary><div class="g3">
+<div class="card"><h2>ครู</h2><small>พิมพ์ชื่อครู บรรทัดละ 1 คน (ถ้าไม่ว่างบางเวลา ใส่ต่อท้าย เช่น ครูสมชาย, พ-5;พ-6)</small><textarea id="ta1" placeholder="ครูสมชาย&#10;ครูสมหญิง, ศ&#10;ครูวิชัย, พ-5;พ-6"></textarea><div class="row np"><input type="file" accept=".csv,.txt" data-f="ta1"><button class="b s" data-tp="t">ใส่ตัวอย่างรูปแบบ</button></div></div>
+<div class="card"><h2>ห้องเรียน</h2><small>พิมพ์ชื่อห้อง บรรทัดละ 1 ห้อง (ชื่อมีคำว่า "แล็บ" = ห้องแล็บ อัตโนมัติ)</small><textarea id="ta2" placeholder="ห้อง 101&#10;ห้อง 102&#10;ห้องแล็บ 1"></textarea><div class="row np"><input type="file" accept=".csv,.txt" data-f="ta2"><button class="b s" data-tp="r">ใส่ตัวอย่างรูปแบบ</button></div></div>
+<div class="card"><h2>รายวิชา (หนึ่งแถว = หนึ่งกลุ่มเรียน)</h2><small>พิมพ์ วิชา, ครู, กลุ่ม, คาบ — ใส่แค่ชื่อวิชาก็ได้ (ระบบเลือกครู/กลุ่ม/คาบให้) หลายกลุ่มคั่นด้วย | เช่น AI-1|AI-2</small><textarea id="ta3" placeholder="คณิตศาสตร์, ครูสมชาย, AI-1|AI-2, 3&#10;ภาษาไทย, ครูสมหญิง, AI-1, 2&#10;ภาษาอังกฤษ"></textarea><div class="row np"><input type="file" accept=".csv,.txt" data-f="ta3"><button class="b s" data-tp="c">ใส่ตัวอย่างรูปแบบ</button></div></div></div>
+</details><div class="card"><h2>ลำดับความสำคัญที่ระบบพิจารณา</h2><div class="pri"><span>1 ครูไม่สอนซ้อนคาบ</span><span>2 กลุ่มเรียนไม่ซ้อนคาบ</span><span>3 ห้องไม่ซ้อน จุพอ ตรงประเภท</span><span>4 ครูไม่ว่างตามเวลา</span><span>5 ไม่เกินชั่วโมงต่อวัน</span><span>6 กระจายวิชาเดียวกันไม่ให้ซ้ำวัน (เงื่อนไขเสริม)</span></div></div><div class="row np"><button class="b" id="go" style="font-size:1.1rem;padding:12px 28px">✨ จัดตารางให้เลย</button><button class="b s" id="val">ตรวจสอบข้อมูลเท่านั้น</button></div><div id="pv"></div></section>
+
+<section id="t2"><div class="card"><h2>ตั้งค่าและเริ่มจัดตาราง</h2>
+<details><summary>ตั้งค่าขั้นสูง (seed / จำนวนรอบ)</summary><div class="row"><label>Seed (ทำซ้ำได้) <input id="seed" type="number" value="2568" style="width:110px"></label><label>รอบซ่อมสูงสุด <input id="iter" type="number" value="60000" style="width:110px"></label></div></details><div class="row">
+<button class="b" id="run">เริ่มจัดตาราง</button><button class="b s" id="cancel" disabled>ยกเลิก</button><button class="b s" id="retry">ลองใหม่ (สุ่ม seed)</button></div>
+<div class="bar"><i id="pb"></i></div><p id="st" style="color:var(--mu)">พร้อมเริ่ม — นำเข้าข้อมูลที่แท็บ 1 ก่อน</p></div>
+<div class="card"><h2>เปรียบเทียบกับวิธีพื้นฐาน</h2><div class="sc"><table id="cmp"><tr><td>ยังไม่มีผล</td></tr></table></div></div><div class="card"><h2>บันทึกการทำงานของเอเยนต์</h2><div class="log" id="lg">รอเริ่มจัดตาราง</div><div id="rp"></div></div></section>
+
+<section id="t3"><div id="nores" class="card">ยังไม่มีตาราง — ไปที่แท็บ 2 เพื่อจัดตาราง</div><div id="res" style="display:none"><div class="row np"><button class="b s" onclick="show(1)">← แก้ข้อมูล</button></div>
+<div class="card"><h2>ตรวจสอบอิสระ (คำนวณใหม่จากตารางสุดท้าย)</h2><div id="ver"></div></div>
+<div class="card"><div class="row"><label>มุมมอง <select id="vt"><option value="g">นักเรียน/กลุ่มเรียน</option><option value="t">ครู</option><option value="r">ห้อง</option></select></label><select id="vk"></select>
+<span class="np"><button class="b s" id="cp">คัดลอก CSV</button><button class="b s" id="pr">พิมพ์ / PDF</button></span></div><div class="sc" id="grid"></div></div>
+<div class="card"><h2>ตัวชี้วัด</h2><div class="kpi" id="kpi"></div><div class="g3" style="margin-top:10px"><div class="sc" id="m1"></div><div class="sc" id="m2"></div><div class="sc" id="m3"></div></div></div>
+<div class="card"><h2>ตารางรวม (ค้นหา/กรอง)</h2><input id="q" placeholder="พิมพ์ชื่อวิชา ครู ห้อง กลุ่ม วัน" style="width:100%"><div class="sc" id="all" style="max-height:420px;overflow:auto;margin-top:8px"></div></div>
+<div class="card np" id="exw" style="display:none"><h2>CSV (เลือกทั้งหมดแล้วคัดลอก)</h2><textarea id="ex"></textarea></div></div></section>
+
+<section id="t4"><div class="card"><h2>วิธีใช้</h2><ol><li>แท็บ 1: เลือกชุดข้อมูลตัวอย่างหรือวาง/อัปโหลด CSV แล้วกดตรวจสอบ ระบบแจ้งปัญหาและวิธีแก้</li><li>แท็บ 2: กดเริ่มจัดตาราง ดูความคืบหน้า ยกเลิกหรือลองใหม่ได้</li><li>แท็บ 3: ดูตารางรายกลุ่ม ครู ห้อง ค้นหา ดูตัวชี้วัด และคัดลอก CSV หรือพิมพ์เป็น PDF</li></ol></div>
+<div class="card"><h2>แนวคิดอัลกอริทึม (Agentic CSP + Min-Conflicts)</h2><ul><li><b>Plan</b>: เรียงคาบสอนที่มีทางเลือกน้อยที่สุดก่อน (most-constrained first)</li><li><b>Act</b>: วางคาบลงช่องเวลา+ห้องที่ต้นทุนข้อขัดแย้งต่ำสุด และกระจายวิชาเดียวกันไม่ให้ซ้ำวัน</li><li><b>Check</b>: ตรวจครูชนคาบ กลุ่มชนคาบ ห้องชน ครูไม่ว่าง และเกินชั่วโมงต่อวัน</li><li><b>Repair</b>: สุ่มคาบที่ขัดแย้งมาย้ายด้วย min-conflicts พร้อม random walk 5% จนเป็นศูนย์</li><li>ผลซ้ำได้ด้วย seed เดียวกัน และเปรียบเทียบกับการสุ่มล้วนและ greedy ในแท็บ 2</li></ul>
+<p>ข้อจำกัดแข็ง: ครู/กลุ่ม/ห้องไม่ซ้อนกัน ห้องต้องจุพอและตรงประเภท ครูไม่ว่างตามเวลา และไม่เกินชั่วโมงสอนต่อวัน</p></div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],DAYS=['จ','อ','พ','พฤ','ศ'];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let D=null,RES=null,CANCEL=false;const hue=s=>{let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))%360;return h};
+const TPL={t:'ครูสมชาย, พ-5;พ-6\nครูสมหญิง\nครูวิชัย, ศ',r:'ห้อง 101\nห้อง 102\nห้องแล็บ 1',c:'คณิตศาสตร์, ครูสมชาย, AI-1|AI-2, 3\nภาษาไทย, ครูสมหญิง, AI-1, 2\nภาษาอังกฤษ'};
+const hdr=t=>/^\s*id\s*,/i.test(t),lines=t=>t.split(/\r?\n/).map(l=>l.trim()).filter(Boolean),sp=l=>l.split(',').map(x=>x.trim());
+const pT=t=>hdr(t)?rows(t):lines(t).map(l=>{const[n,u,m,rm]=sp(l);return{id:n,name:n,maxPerDay:m||6,unavailable:u||'',room:rm||''}});
+const pR=t=>hdr(t)?rows(t):lines(t).map(l=>{const[n,c,ty]=sp(l),lab=/แล็บ|lab/i.test(n);return{id:n,name:n,capacity:+c||(lab?35:40),type:ty||(lab?'แล็บ':'ทั่วไป')}});
+const pC=(t,T)=>{if(hdr(t))return rows(t);let k=0,n=0;const o=[];lines(t).forEach(l=>{const[s,tc,g,h,ty,rm]=sp(l);(g||'กลุ่ม1').split(/[|\/]/).forEach(gg=>o.push({id:'C'+(++n),name:s,teacher:tc||(T.length?T[k++%T.length].id:''),group:gg.trim(),students:30,hours:h||2,room:rm||'',roomType:ty||(/แล็บ|lab/i.test(s)?'แล็บ':'ทั่วไป')}))});return o};
+function show(n){$$('section').forEach(s=>s.classList.toggle('on',s.id=='t'+n));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==n))}
+$$('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+function gen(G,T,N,L){const sb=[['คณิตศาสตร์',3,'ทั่วไป'],['ภาษาไทย',2,'ทั่วไป'],['ภาษาอังกฤษ',2,'ทั่วไป'],['เขียนโปรแกรม',3,'แล็บ'],['ฐานข้อมูล',3,'แล็บ'],['AI เบื้องต้น',3,'แล็บ']];
+let t='id,name,maxPerDay,unavailable\n',r='id,name,capacity,type\n',c='id,name,teacher,group,students,hours,roomType\n';
+for(let i=0;i<T;i++)t+=`T${i+1},ครู${i+1},6,${i%3==2?'พ-5;พ-6;พ-7;พ-8':i%5==4?'ศ':''}\n`;
+for(let i=0;i<N;i++)r+=`R${100+i},ห้องเรียน ${100+i},40,ทั่วไป\n`;for(let i=0;i<L;i++)r+=`L${200+i},ห้องแล็บ ${i+1},35,แล็บ\n`;
+let n=0;for(let g=0;g<G;g++)sb.forEach((s,k)=>{c+=`C${++n},${s[0]},T${(g*6+k)%T+1},AI-${g+1},${25+(g*3+k)%10},${s[1]},${s[2]}\n`});return[t,r,c]}
+const SZ={s:[4,7,2,2],m:[10,14,4,4],l:[24,26,8,8]};
+$$('[data-g]').forEach(b=>b.onclick=e=>{const [a,b2,c]=gen(...SZ[b.dataset.g]),A=rows(a),tn=Object.fromEntries(A.map(x=>[x.id,x.name]));$('#ta1').value=A.map(x=>x.name+(x.unavailable?', '+x.unavailable:'')).join('\n');$('#ta2').value=rows(b2).map(x=>`${x.name}, ${x.capacity}, ${x.type}`).join('\n');$('#ta3').value=rows(c).map(x=>[x.name,tn[x.teacher],x.group,x.hours,x.roomType].join(', ')).join('\n');validate();if(D&&e.isTrusted)runSolve(2568)});
+$$('[data-f]').forEach(i=>i.onchange=()=>{const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('#'+i.dataset.f).value=r.result;validate()};r.readAsText(f)});
+$$('[data-tp]').forEach(b=>b.onclick=()=>{$('#'+({t:'ta1',r:'ta2',c:'ta3'})[b.dataset.tp]).value=TPL[b.dataset.tp];});
+const rows=t=>{const r=t.trim().split(/\r?\n/).filter(l=>l.trim()).map(l=>l.split(',').map(x=>x.trim()));const h=r.shift()||[];return r.map(c=>Object.fromEntries(h.map((k,i)=>[k,c[i]??''])))};
+function validate(){ui();const E=[],W=[],T=pT($('#ta1').value),R=pR($('#ta2').value),C=pC($('#ta3').value,T),P=Math.max(1,+$('#per').value||8),S=5*P;
+const dup=(a,n)=>{const s=new Set();a.forEach((x,i)=>{if(!x.id)E.push(`${n} แถว ${i+2}: ไม่มี id → กรอกรหัสให้ครบ`);else if(s.has(x.id))E.push(`${n}: id ซ้ำ "${x.id}" → เปลี่ยนให้ไม่ซ้ำกัน`);s.add(x.id)})};
+dup(T,'ครู');dup(R,'ห้อง');dup(C,'รายวิชา');
+if(!T.length||!R.length||!C.length)E.push('ต้องมีข้อมูลครู ห้อง และรายวิชาอย่างน้อยอย่างละ 1 แถว → เพิ่มข้อมูลในช่อง 1) 2) 3) ด้านบน');
+const ti={};const teachers=T.map((x,i)=>{ti[x.id]=i;const un=new Uint8Array(S);(x.unavailable||'').split(';').filter(Boolean).forEach(k=>{const [d,p]=k.split('-'),di=DAYS.indexOf(d);if(di<0){W.push(`ครู ${x.id}: ไม่รู้จักวัน "${k}" (ใช้ จ อ พ พฤ ศ)`);return}
+if(p===undefined)for(let q=0;q<P;q++)un[di*P+q]=1;else if(+p>=1&&+p<=P)un[di*P+(+p-1)]=1;else W.push(`ครู ${x.id}: คาบ "${k}" เกินช่วง 1-${P}`)});const lu=(+$('#lun').value||0)-1;if(lu>=0&&lu<P)for(let y=0;y<5;y++)un[y*P+lu]=1;return{id:x.id,name:x.name||x.id,max:+x.maxPerDay||P,un}});
+const rooms=R.map(x=>({id:x.id,name:x.name||x.id,cap:+x.capacity||0,type:x.type}));
+const gi={},G=[],tl={},gl={};
+const courses=[];C.forEach((x,i)=>{const t=ti[x.teacher],h=+x.hours,n=+x.students||0;let ok=true;
+if(t===undefined){E.push(`รายวิชา ${x.id}: ไม่พบครู "${x.teacher}" → แก้รหัสครูให้ตรงกับตารางครู`);ok=false}
+if(!(h>=1&&h<=S&&Number.isInteger(h))){E.push(`รายวิชา ${x.id}: จำนวนคาบ "${x.hours}" ไม่ถูกต้อง (ต้องเป็นจำนวนเต็ม 1-${S})`);ok=false}
+if(!x.group){E.push(`รายวิชา ${x.id}: ไม่ระบุกลุ่มเรียน`);ok=false}
+const pin=x.room||'';let rs=rooms.map((r,k)=>(pin?(r.id==pin||r.name==pin):(!x.roomType||r.type==x.roomType))&&r.cap>=n?k:-1).filter(k=>k>=0);
+if(!rs.length){E.push(pin?`รายวิชา ${x.id}: ห้อง "${pin}" ไม่พบ หรือจุ ${n} คนไม่พอ → เลือกห้องอื่น หรือเว้นเป็น "ให้ระบบเลือก"`:`รายวิชา ${x.id}: ไม่มีห้องประเภท "${x.roomType}" ที่จุ ${n} คน → เพิ่มห้อง หรือลดจำนวนนักเรียน`);ok=false}
+if(!ok)return;if(!(x.group in gi)){gi[x.group]=G.length;G.push(x.group)}
+gl[x.group]=(gl[x.group]||0)+h;tl[x.teacher]=(tl[x.teacher]||0)+h;courses.push({id:x.id,name:x.name,t,g:gi[x.group],hours:h,rs})});
+G.forEach(g=>{if(gl[g]>S)E.push(`กลุ่ม ${g}: ${gl[g]} คาบ เกินช่องเวลาทั้งสัปดาห์ (${S}) → ลดคาบหรือเพิ่มคาบต่อวัน`)});
+teachers.forEach(t=>{const free=t.un.reduce((a,v)=>a+(1-v),0),l=tl[t.id]||0;if(l>free)E.push(`ครู ${t.id}: สอน ${l} คาบ แต่ว่างเพียง ${free} → ย้ายวิชาให้ครูท่านอื่น`);else if(l>t.max*5)E.push(`ครู ${t.id}: ${l} คาบ เกิน ${t.max}×5 → เพิ่ม maxPerDay หรือย้ายวิชา`)});
+const lt=courses.reduce((a,c)=>a+c.hours,0);if(lt>S*rooms.length)E.push(`จำนวนคาบรวม ${lt} เกินความจุห้องทั้งหมด ${S*rooms.length} → เพิ่มห้อง`);
+D=E.length?null:{P,T:teachers,R:rooms,G,C:courses};
+$('#pv').innerHTML=E.map(m=>`<div class="msg e">✗ ${esc(m)}</div>`).join('')+W.map(m=>`<div class="msg w">⚠ ${esc(m)}</div>`).join('')+(E.length?'':`<div class="card"><div class="msg o">✓ ข้อมูลพร้อมจัดตาราง</div><div class="kpi"><div><b>${teachers.length}</b><span>ครู</span></div><div><b>${rooms.length}</b><span>ห้อง</span></div><div><b>${G.length}</b><span>กลุ่มเรียน</span></div><div><b>${courses.length}</b><span>รายวิชา</span></div><div><b>${lt}</b><span>คาบรวม</span></div></div><div class="row np"><button class="b" onclick="$('#go').click()">✨ จัดตารางให้เลย</button></div></div>`)}
+const ids={t:'ta1',r:'ta2',s:'ta3'},gl=k=>lines($('#'+ids[k]).value),sl=(k,a)=>{$('#'+ids[k]).value=a.join('\n');validate()};
+function ui(){const T=gl('t'),R=gl('r'),S=gl('s'),ch=(a,f,k)=>a.map((l,i)=>`<span class="chip">${esc(f(sp(l)))}<button title="ลบ" data-k="${k}" data-i="${i}">×</button></span>`).join('')||'<small>ยังไม่มี</small>';
+$('#ct').innerHTML=ch(T,p=>p[0]+(p[1]?' (ไม่ว่าง '+p[1]+')':''),'t');$('#cr').innerHTML=ch(R,p=>p[0]+(/แล็บ|lab/i.test(p[0])?' 🧪':''),'r');
+$('#cs').innerHTML=ch(S,p=>`${p[0]} · ${p[1]||'ระบบเลือกครู'} · ${p[2]||'กลุ่ม1'} · ${p[3]||2} คาบ`+(p[4]=='แล็บ'?' 🧪':'')+(p[5]?' → '+p[5]:''),'s');
+const c=$('#nte').value;$('#nte').innerHTML='<option value="">ครู: ให้ระบบเลือก</option>'+T.map(l=>`<option>${esc(sp(l)[0])}</option>`).join('');$('#nte').value=c;const c2=$('#nsr').value;$('#nsr').innerHTML='<option value="">ห้อง: ให้ระบบเลือก</option>'+R.map(l=>`<option>${esc(sp(l)[0])}</option>`).join('');$('#nsr').value=c2}
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;const a=gl(b.dataset.k);a.splice(+b.dataset.i,1);sl(b.dataset.k,a)});
+const cl=s=>s.trim().replace(/,/g,' ');
+const aT=()=>{const v=cl($('#nt').value);if(!v)return;const P=+$('#per').value||9,lu=+$('#lun').value||0,w=$('#nws').value,cut=lu>0?lu:Math.ceil(P/2)+1,tk=[];
+$$('.dy.on').forEach(b=>{const d=b.dataset.d;if(!w)tk.push(d);else for(let p=1;p<=P;p++)if(w=='m'?p<cut:p>=cut)tk.push(d+'-'+p)});
+sl('t',[...gl('t'),tk.length?`${v}, ${tk.join(';')}`:v]);$$('.dy.on').forEach(b=>b.classList.remove('on'));dsel();$('#nt').value='';$('#nt').focus()};
+$$('.dy').forEach(b=>b.onclick=()=>{b.classList.toggle('on');dsel()});
+function dsel(){const m={'จ':'จันทร์','อ':'อังคาร','พ':'พุธ','พฤ':'พฤหัสบดี','ศ':'ศุกร์'},ds=$$('.dy.on').map(b=>m[b.dataset.d]),w=$('#nws').value;$('#dsel').textContent=ds.length?`ไม่ว่าง: ${ds.join(', ')} (${w=='m'?'ช่วงเช้า':w=='a'?'ช่วงบ่าย':'ทั้งวัน'})`:''}
+$('#nws').onchange=dsel;dsel();
+const aR=()=>{let v=cl($('#nr').value);if(!v)return;if($('#nl').checked&&!/แล็บ|lab/i.test(v))v='ห้องแล็บ '+v;sl('r',[...gl('r'),v]);$('#nr').value='';$('#nr').focus()};
+const aS=()=>{const v=cl($('#ns').value);if(!v)return;sl('s',[...gl('s'),[v,$('#nte').value,cl($('#ng').value)||'กลุ่ม1',+$('#nh').value||2,$('#nb').checked?'แล็บ':'ทั่วไป',$('#nsr').value].join(', ')]);$('#ns').value='';$('#ns').focus()};
+$('#clr').onclick=()=>{['ta1','ta2','ta3'].forEach(i=>$('#'+i).value='');ui();D=null;$('#pv').innerHTML=''};
+$('#at').onclick=aT;$('#ar').onclick=aR;$('#as').onclick=aS;
+[['#nt',aT],['#nr',aR],['#ns',aS],['#ng',aS]].forEach(([s,f])=>$(s).onkeydown=e=>{if(e.key=='Enter'){e.preventDefault();f()}});
+$('#val').onclick=validate;$('#go').onclick=()=>{validate();if(D)runSolve(+$('#seed').value||2568);else $('#pv').scrollIntoView({behavior:'smooth'})};
+$$('textarea').forEach(t=>t.oninput=()=>{clearTimeout(window.vtm);window.vtm=setTimeout(validate,600)});
+const rng=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+function solve(d,seed,maxIter,prog){const rnd=rng(seed),P=d.P,S=5*P,nT=d.T.length,nG=d.G.length,nR=d.R.length,t0=performance.now();
+const L=[];d.C.forEach((c,ci)=>{for(let h=0;h<c.hours;h++)L.push({c:ci,t:c.t,g:c.g,rs:c.rs})});
+const tS=new Int16Array(nT*S),gS=new Int16Array(nG*S),rS=new Int16Array(nR*S),tD=new Int16Array(nT*5),cD=new Int16Array(d.C.length*5),cS=new Int16Array(d.C.length*S),A=L.map(()=>null);
+const pl=(i,s,r,v)=>{const l=L[i],y=(s/P)|0;tS[l.t*S+s]+=v;gS[l.g*S+s]+=v;rS[r*S+s]+=v;tD[l.t*5+y]+=v;cD[l.c*5+y]+=v;cS[l.c*S+s]+=v};
+const cost=(i,s,r)=>{const l=L[i],y=(s/P)|0,t=d.T[l.t];return tS[l.t*S+s]+gS[l.g*S+s]+rS[r*S+s]+t.un[s]+(tD[l.t*5+y]>=t.max?1:0)+cD[l.c*5+y]*.1-(s%P>0&&cS[l.c*S+s-1]?.3:0)-(s%P<P-1&&cS[l.c*S+s+1]?.3:0)};
+const bad=i=>{const l=L[i],[s,r]=A[i],y=(s/P)|0;return tS[l.t*S+s]>1||gS[l.g*S+s]>1||rS[r*S+s]>1||d.T[l.t].un[s]||tD[l.t*5+y]>d.T[l.t].max};
+const best=i=>{let m=1e9,b=null;for(let s=0;s<S;s++)for(const r of L[i].rs){const v=cost(i,s,r)+rnd()*.05;if(v<m){m=v;b=[s,r]}}return b};
+const stats=()=>{let a=0,b=0,c=0,u=0,m=0;for(const x of tS)if(x>1)a+=x-1;for(const x of gS)if(x>1)b+=x-1;for(const x of rS)if(x>1)c+=x-1;
+L.forEach((l,i)=>{if(A[i]&&d.T[l.t].un[A[i][0]])u++});d.T.forEach((t,k)=>{for(let y=0;y<5;y++)if(tD[k*5+y]>t.max)m+=tD[k*5+y]-t.max});return{teacher:a,group:b,room:c,unavail:u,maxday:m,total:a+b+c+u+m}};
+L.forEach((l,i)=>{A[i]=[(rnd()*S)|0,l.rs[(rnd()*l.rs.length)|0]];pl(i,...A[i],1)});const rand=stats();L.forEach((l,i)=>{pl(i,...A[i],-1);A[i]=null});
+const un=d.T.map(t=>t.un.reduce((a,v)=>a+v,0)),order=L.map((l,i)=>i).sort((a,b)=>(L[a].rs.length*(S-un[L[a].t])+rnd())-(L[b].rs.length*(S-un[L[b].t])+rnd()));
+order.forEach(i=>{A[i]=best(i);pl(i,...A[i],1)});const greedy=stats(),tg=performance.now()-t0;const LG=[`🧭 Plan: เรียง ${L.length} คาบ จากคาบที่มีทางเลือกน้อยสุดไปมากสุด`,`🛠 Act: วางคาบลงช่องเวลา+ห้องที่ต้นทุนต่ำสุด เหลือขัดแย้ง ${greedy.total} จุด (สุ่มล้วน ${rand.total} จุด) ใน ${Math.round(tg)} ms`];
+return new Promise(res=>{let it=0,cl=[];const refresh=()=>{cl=[];for(let i=0;i<L.length;i++)if(bad(i))cl.push(i)};refresh();
+const fin=()=>{const f=stats();LG.push(`🔍 Check: พบคาบขัดแย้ง ${cl.length} คาบ ก่อนหยุด`,`🔧 Repair: ย้ายคาบแบบ min-conflicts ${it} รอบ → ขัดแย้งเหลือ ${f.total} จุด`,f.total?'⚠ ยังไม่ลงตัว ลองเปลี่ยน seed หรือเพิ่มรอบซ่อม':'✅ ตารางผ่านการตรวจครบทุกข้อบังคับ');res({LG,L,A,d,seed,it,ms:performance.now()-t0,cmp:{rand,greedy,final:f},tg,cancelled:CANCEL})};
+const step=()=>{let n=0;while(cl.length&&it<maxIter&&n++<200){const i=cl[(rnd()*cl.length)|0];pl(i,...A[i],-1);
+const m=rnd()<.05?[(rnd()*S)|0,L[i].rs[(rnd()*L[i].rs.length)|0]]:best(i);A[i]=m;pl(i,...m,1);it++;if(it%50==0)refresh()}
+refresh();prog(it/maxIter,cl.length,it);if(!cl.length||it>=maxIter||CANCEL)fin();else setTimeout(step,0)};
+prog(0,cl.length,0);setTimeout(step,0)})}
+async function runSolve(seed){if(!D)validate();if(!D){show(1);return}CANCEL=false;$('#run').disabled=true;$('#cancel').disabled=false;
+$('#st').textContent='กำลังจัดตาราง…';const r=await solve(D,seed,+$('#iter').value||60000,(p,c,it)=>{$('#pb').style.width=Math.max(3,p*100)+'%';$('#st').textContent=`รอบซ่อม ${it} · คาบที่ยังขัดแย้ง ${c}`});
+$('#run').disabled=false;$('#cancel').disabled=true;$('#pb').style.width='100%';RES=r;const f=r.cmp.final.total;
+$('#st').textContent=(r.cancelled?'ยกเลิกแล้ว — ':'')+(f==0?`สำเร็จ ไม่มีข้อขัดแย้ง ใช้เวลา ${Math.round(r.ms)} มิลลิวินาที (seed ${seed})`:`เหลือข้อขัดแย้ง ${f} จุด — กดลองใหม่ หรือเพิ่มรอบซ่อม`);
+const row=(n,x)=>`<tr><td>${n}</td><td>${x.teacher}</td><td>${x.group}</td><td>${x.room}</td><td>${x.unavail+x.maxday}</td><td><b>${x.total}</b></td></tr>`;
+$('#cmp').innerHTML=`<tr><th>วิธี</th><th>ครูชน</th><th>กลุ่มชน</th><th>ห้องชน</th><th>ครูไม่ว่าง/เกินวัน</th><th>รวม</th></tr>`+row('สุ่มล้วน (พื้นฐาน)',r.cmp.rand)+row('Plan+Act (greedy)',r.cmp.greedy)+row('Plan+Act+Check+Repair',r.cmp.final);
+$('#lg').innerHTML=r.LG.map(x=>`<div>${esc(x)}</div>`).join('');render();if(!r.cancelled){const r2=await solve(D,seed,+$('#iter').value||60000,()=>{}),same=JSON.stringify(r2.A)==JSON.stringify(r.A);$('#rp').innerHTML=`<div class="msg ${same?'o':'e'}">${same?'✓ ทำซ้ำด้วย seed '+seed+' ได้ตารางเหมือนเดิมทุกคาบ':'✗ ผลไม่ตรงกัน'}</div>`;show(3)}}
+$('#run').onclick=()=>runSolve(+$('#seed').value||1);$('#cancel').onclick=()=>CANCEL=true;$('#retry').onclick=()=>{const s=(Math.random()*1e6)|0;$('#seed').value=s;runSolve(s)};
+function items(){const{L,A,d}=RES;return L.map((l,i)=>{const[s,r]=A[i],c=d.C[l.c];return{s,day:DAYS[(s/d.P)|0],p:s%d.P+1,course:c.name,cid:c.id,g:l.g,t:l.t,r,gn:d.G[l.g],tn:d.T[l.t].name,rn:d.R[r].name}})}
+function verify(it,d){const m={t:{},g:{},r:{}};let c=[0,0,0,0];it.forEach(x=>{[['t',x.t],['g',x.g],['r',x.r]].forEach(([k,v],j)=>{const key=v+'@'+x.s;m[k][key]=(m[k][key]||0)+1;if(m[k][key]>1)c[j]++});if(d.T[x.t].un[x.s])c[3]++});return c}
+function render(){const d=RES.d,it=items(),[a,b,c,u]=verify(it,d);$('#nores').style.display='none';$('#res').style.display='block';
+const ok=(n,v)=>`<div class="msg ${v?'e':'o'}">${v?'✗':'✓'} ${n}: ${v} จุด</div>`;$('#ver').innerHTML=ok('ครูสอนซ้อนคาบ',a)+ok('กลุ่มเรียนซ้อนคาบ',b)+ok('ห้องซ้อนคาบ',c)+ok('ครูสอนในเวลาที่ไม่ว่าง',u)+`<small>ตรวจ ${it.length} คาบ จาก ${d.C.length} รายวิชา</small>`;
+const sel=()=>{const v=$('#vt').value,arr=v=='g'?d.G:v=='t'?d.T.map(x=>x.name):d.R.map(x=>x.name);const cur=$('#vk').value;$('#vk').innerHTML=arr.map((n,i)=>`<option value="${i}">${esc(n)}</option>`).join('');if(cur&&arr[cur])$('#vk').value=cur;grid()};
+const grid=()=>{const v=$('#vt').value,k=+$('#vk').value||0,P=d.P;let h='<table><tr><th>วัน</th>'+Array.from({length:P},(_,i)=>`<th>คาบ ${i+1}<br><small>${tm(i)}</small></th>`).join('')+'</tr>';
+for(let y=0;y<5;y++){h+=`<tr><th>${DAYS[y]}</th>`;for(let p=0;p<P;p++){const s=y*P+p,f=it.filter(x=>x.s==s&&x[v]==k);let sp2=1;if(f.length==1)while(p+sp2<P){const g=it.filter(x=>x.s==s+sp2&&x[v]==k);if(g.length==1&&g[0].cid==f[0].cid&&g[0].r==f[0].r)sp2++;else break}p+=sp2-1;h+=`<td colspan="${sp2}" class="${f.length>1?'x':''}">`+f.map(x=>`<div class="cell" style="--h:${hue(x.course)}"><b>${esc(x.course)}</b><small>${v!='g'?esc(x.gn)+' · ':''}${v!='t'?esc(x.tn)+' · ':''}${v!='r'?esc(x.rn):''}</small></div>`).join('')+'</td>'}h+='</tr>'}$('#grid').innerHTML=`<h3 style="margin:0 0 8px">ตารางสอน · ${esc($('#vk').selectedOptions[0]?.text||'')}</h3>`+h+'</table>'};
+$('#vt').onchange=()=>{$('#vk').innerHTML='';sel()};$('#vk').onchange=grid;sel();
+const S=5*d.P,tl=d.T.map(()=>0),rl=d.R.map(()=>0),gaps=d.G.map(()=>0),td=d.T.map(()=>Array(5).fill(0)),gd=d.G.map(()=>Array.from({length:5},()=>[]));
+it.forEach(x=>{tl[x.t]++;rl[x.r]++;td[x.t][(x.s/d.P)|0]++;gd[x.g][(x.s/d.P)|0].push(x.p)});gd.forEach((g,i)=>g.forEach(a=>{if(a.length)gaps[i]+=Math.max(...a)-Math.min(...a)+1-a.length}));
+const avgU=Math.round(rl.reduce((a,v)=>a+v,0)/(S*d.R.length)*100);
+$('#kpi').innerHTML=`<div><b>${it.length}</b><span>คาบที่จัดแล้ว</span></div><div><b>${avgU}%</b><span>อัตราใช้ห้องเฉลี่ย</span></div><div><b>${gaps.reduce((a,v)=>a+v,0)}</b><span>คาบว่างแทรกของนักเรียน</span></div><div><b>${Math.max(...tl)}</b><span>ภาระครูสูงสุด (คาบ/สัปดาห์)</span></div>`;
+const tb=(h,r)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr>${x.map(y=>`<td>${esc(y)}</td>`).join('')}</tr>`).join('')}</table>`;
+$('#m1').innerHTML=tb(['ห้อง','ใช้งาน'],d.R.map((r,i)=>[r.name,Math.round(rl[i]/S*100)+'%']));
+$('#m2').innerHTML=tb(['ครู','คาบ','สูงสุด/วัน'],d.T.map((t,i)=>[t.name,tl[i],Math.max(...td[i])]));
+$('#m3').innerHTML=tb(['กลุ่ม','คาบว่างแทรก'],d.G.map((g,i)=>[g,gaps[i]]));
+fl();window.CSVT='วิชา,กลุ่ม,ครู,ห้อง,วัน,คาบ,เวลา\n'+it.slice().sort((x,y)=>x.s-y.s).map(x=>[x.course,x.gn,x.tn,x.rn,x.day,x.p,tm(x.p-1)].join(',')).join('\n')}
+const tm=p=>{const[a,b]=($('#t0').value||'08:30').split(':').map(Number),n=+$('#dur').value||50,f=m=>String((m/60|0)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0'),s=a*60+b+p*n;return f(s)+'–'+f(s+n)};
+['#t0','#dur'].forEach(s=>$(s).onchange=()=>{if(RES)render()});
+function fl(){if(!RES)return;const q=$('#q').value.trim().toLowerCase(),it=items().sort((a,b)=>a.s-b.s).filter(x=>!q||[x.course,x.gn,x.tn,x.rn,x.day].join(' ').toLowerCase().includes(q));
+$('#all').innerHTML=`<table><tr><th>วัน</th><th>คาบ</th><th>วิชา</th><th>กลุ่ม</th><th>ครู</th><th>ห้อง</th></tr>${it.slice(0,300).map(x=>`<tr><td>${x.day}</td><td>${x.p} (${tm(x.p-1)})</td><td>${esc(x.course)}</td><td>${esc(x.gn)}</td><td>${esc(x.tn)}</td><td>${esc(x.rn)}</td></tr>`).join('')}</table>${it.length>300?`<small>แสดง 300 จาก ${it.length} แถว — พิมพ์ค้นหาเพื่อกรอง</small>`:''}`}
+$('#q').oninput=fl;
+$('#cp').onclick=async()=>{$('#exw').style.display='block';$('#ex').value=window.CSVT;$('#ex').select();try{await navigator.clipboard.writeText(window.CSVT);$('#cp').textContent='คัดลอกแล้ว ✓'}catch(e){$('#cp').textContent='เลือกข้อความด้านล่างแล้วคัดลอก'}};
+$('#pr').onclick=()=>{try{window.print()}catch(e){}};
+ui();
+</script></body></html>
